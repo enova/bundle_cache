@@ -12,9 +12,13 @@ module BundleCache
 
     file_name       = "#{ENV['BUNDLE_ARCHIVE']}-#{architecture}.tgz"
     file_path       = "#{processing_dir}/#{file_name}"
-    lock_file       = File.join(File.expand_path(ENV["TRAVIS_BUILD_DIR"].to_s), "Gemfile.lock")
     digest_filename = "#{file_name}.sha2"
     old_digest      = File.expand_path("#{processing_dir}/remote_#{digest_filename}")
+    lock_file       = if ENV["BUNDLE_GEMFILE"]
+                        File.expand_path("#{ENV['BUNDLE_GEMFILE']}.lock")
+                      else
+                        File.join(File.expand_path(ENV["TRAVIS_BUILD_DIR"].to_s), "Gemfile.lock")
+                      end
 
     puts "Checking for changes"
     bundle_digest = Digest::SHA2.file(lock_file).hexdigest
