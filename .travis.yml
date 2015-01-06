@@ -1,4 +1,5 @@
 language: ruby
+cache: bundler
 rvm:
 - 1.9.3
 - 2.0.0
@@ -9,11 +10,3 @@ script:
 - cd $TRAVIS_BUILD_DIR
 - rake build
 - gem install pkg/*.gem
-- bundle_cache_install
-after_script:
-- bundle_cache
-env:
-  global:
-  - BUNDLE_ARCHIVE="bundle_cache_test"
-  - AWS_S3_BUCKET="travis.data-axle.infogroup.com"
-  - secure: OpVVRrTLeXspiOE0TMXxah7QHPZasA4n+xf9XUwTh0Tq1z6F6Ojq8kz8XvRQOS9VsWKj5Xx8gmrJbzUx2MmKbJZvKi0f19oqJiEstVVfR+ATWzTaDkfl31WUowmvX7QVh8+ejfi9bQDMj9HkAkn6p0uGWZGDZQd5Q/OyVMka/9o=
